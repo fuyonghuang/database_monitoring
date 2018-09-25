@@ -1,5 +1,7 @@
 package com.jt.database_monitoring.monitor;
 
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,20 +16,25 @@ public class MonitorService {
   @Autowired
   JdbcTemplate jdbcTemplate;
 
-  @Value("")
+  @Value("${sql.sqlStr}")
   private String sqlStr;
-  @Value("")
+  @Value("${sql.presetTime}")
   private long presetTime;
-
-
+  @Value("${sms.username}")
+  private String username;
+  @Value("${sms.password}")
+  private String password;
+  @Value("${sms.url}")
+  private static String url;
 
   public void runMonitorService(int count){
     long startTime = System.currentTimeMillis();
-    jdbcTemplate.execute(sqlStr);
+    List<Map<String, Object>> maps = jdbcTemplate.queryForList(sqlStr);
+    System.out.println(maps.iterator());
     long endTime = System.currentTimeMillis();
     long l = startTime - endTime;
     if(l<=presetTime&&count<=2){
-
+      System.out.println("asdfsd");
 
     }
 

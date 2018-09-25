@@ -17,22 +17,16 @@ public class SendSms {
 
 
 
-  @Value("${sms.username}")
-  private String username;
-  @Value("${sms.password}")
-  private String password;
-  @Value("${sms.url}")
-  private static String url;
 
 
   /**
    * @param Uid SMS用户id  ： lvfang123
-   * @param Key 接口秘钥：SMS登录可查（非登录密码）
+   * @param Key 接口秘钥：SMS登录可查（非 登录密码）
    * @param sendPhoneNum 短信发送目标号码
    * @param desc 短信内容
    * @return Integer(1：成功码，其他失败，具体参见注释)
    */
-  public static Integer send(String Uid,String Key,String sendPhoneNum,String desc){
+  public static Integer send(String username,String password,String  url,String sendPhoneNum,String desc){
   String Sms_url = url;
     HttpClient client = new HttpClient();
     PostMethod post = new PostMethod(Sms_url);
@@ -40,8 +34,8 @@ public class SendSms {
 
     //设置参数
     NameValuePair[] data = {
-        new NameValuePair("username", Uid),
-        new NameValuePair("password", Key),//秘钥
+        new NameValuePair("username", username),
+        new NameValuePair("password", password),//秘钥
         new NameValuePair("smsMob", sendPhoneNum),
         new NameValuePair("smsText", desc)
     };
